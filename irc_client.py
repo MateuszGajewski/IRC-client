@@ -2,13 +2,18 @@ import socket
 
 class IRCClient:
 
-    def __init__(self, server="127.0.0.1", port=1234):
+    def __init__(self, server='192.168.1.5', port=1234):
         self.server = server
         self.port = port
         self.connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.connection.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
     def connect(self):
         self.connection.connect((self.server, self.port))
+        """
+        self.connection.bind((self.server, self.port))
+        self.connection.listen(2)
+        self.conection, addr = self.connection.accept()"""
 
     def get_response(self):
         a = ''
